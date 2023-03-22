@@ -5,7 +5,6 @@ import com.seongju.composeroom.domain.model.UserModel
 import com.seongju.composeroom.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.io.IOException
 import javax.inject.Inject
 
 class GetUsersUseCase @Inject constructor(
@@ -27,9 +26,14 @@ class GetUsersUseCase @Inject constructor(
                 userName = userName,
                 password = password
             )
-            emit(Resource.Success<List<UserModel>>(data = result))
-        } catch (e: IOException) {
-            emit(Resource.Error<List<UserModel>>(message = "데이터가 없습니다."))
+            if (result.isNotEmpty()) {
+                emit(Resource.Success<List<UserModel>>(data = result))
+            } else {
+                emit(Resource.Error<List<UserModel>>(message = "로그인 정보가 없습니다."))
+                return@flow
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error<List<UserModel>>(message = "에러가 발생하였습니다."))
         }
     }
 
