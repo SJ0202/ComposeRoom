@@ -60,10 +60,10 @@ class LoginViewModel @Inject constructor(
         userName: String? = null,
         userPassword: String? = null
     ) {
-        if (!userName.isNullOrBlank()) {
+        if (userName != null) {
             _userName.value = userName.toString()
         }
-        if (!userPassword.isNullOrBlank()) {
+        if (userPassword != null) {
             _userPassword.value = userPassword.toString()
         }
     }

@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.seongju.composeroom.presentation.login.components.StandardButton
 import com.seongju.composeroom.presentation.login.components.StandardTextField
+import com.seongju.composeroom.presentation.util.Screen
 import com.seongju.composeroom.ui.theme.SpaceDefault
 
 @Composable
@@ -65,6 +66,7 @@ fun LoginScreenBody(
             }
             if (state.user != null) {
                 Log.d(tag, state.user.toString())
+                Toast.makeText(localContext, "${state.user[0].userName} 님 안녕하세요.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -129,9 +131,8 @@ fun LoginScreenBody(
             containerColor = Color.White,
             contentColor = Color.Black
         ) {
-            loginViewModel.getUser(
-                userName = userName,
-                userPassword = userPassword
+            navController.navigate(
+                route = Screen.SignUpScreen.route
             )
         }
     }
